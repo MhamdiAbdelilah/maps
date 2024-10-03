@@ -1,0 +1,44 @@
+<!DOCTYPE html >
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Parcourir un tableau indicé</title>
+	</head>
+<body>
+
+<h1>Tableau associatif en javascript</h1>
+<hr>
+<div id="demo">
+	<button id = "Button1"> ok </button>
+	
+</div>
+
+<script type="text/javascript">
+		var CD = `
+					{
+						"TITLE": "Empire Burlesque",
+						"ARTIST": "Bob Dylan",
+						"COUNTRY": "USA",
+						"COMPANY": "Columbia",
+						"PRICE": "10.90",
+						"YEAR": "1985"
+					}
+				`
+		 CD = JSON.parse(CD)
+
+	
+	var i;
+	document.getElementById("Button1").addEventListener('click',readTab);
+
+	function readTab(){
+		for (const key in CD) {
+			console.log(`${key}:${CD[key]}`);
+			
+		}
+				
+	}
+  
+</script>
+
+</body>
+</html>
