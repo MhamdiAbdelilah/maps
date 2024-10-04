@@ -5,26 +5,45 @@
 cord = { lat: 48.960488945948185, lng: 2.5478907124310757 }
 
 async function initMap() {
-  const { Map, InfoWindow } = await google.maps.importLibrary("maps");
-  $.ajax({
-    url: 'markersJrostand.json', // URL to send the request to
-    type: 'GET', // HTTP method (GET, POST, etc.)
-    dataType: 'json', // Expected data format from the server
-    success: function (markers) {
-      //console.log(data);
-      // init map
-      const map = new Map(document.getElementById("map"), {
-        zoom: 15 ,
-        center:  cord,
-        mapId: "37467c5a4504d37e",
-      });
-
-
-      setMarkers(map,markers);
-      
+  fetch('markersJrostand.json')
+  .then((res) => {
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
     }
-    
+    return res.json();
+  })
+  .then((markers) => {
+    const { Map, InfoWindow } = google.maps.importLibrary("maps");
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 15,
+      center: cord,
+      mapId: "37467c5a4504d37e",
+    });
+
+    setMarkers(map, markers);
+  })
+  .catch((error) => {
+    console.error('Error fetching markers:', error);
   });
+  // $.ajax({
+  //   url: 'markersJrostand.json', // URL to send the request to
+  //   type: 'GET', // HTTP method (GET, POST, etc.)
+  //   dataType: 'json', // Expected data format from the server
+  //   success: function (markers) {
+  //     //console.log(data);
+  //     // init map
+  //     const map = new Map(document.getElementById("map"), {
+  //       zoom: 15 ,
+  //       center:  cord,
+  //       mapId: "37467c5a4504d37e",
+  //     });
+
+
+  //     setMarkers(map,markers);
+      
+  //   }
+    
+  // });
 }
 
 
