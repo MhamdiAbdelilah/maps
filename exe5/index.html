@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Simple Markers</title>
+
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3z5IVSW8UThFBvBaLBS1kYhXvYzjNyRg&callback=initMap&v=weekly&libraries=&async" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src='./index.js'></script>
+  </head>
+  <body>
+    <select id="courseSelect" onchange="initMap(this.value)">
+      <option value="0">Course 1</option>
+      <option value="1">Course 2</option>
+    </select>
+    
+
+    <div id="map"></div>
+
+    <!-- 
+      The `defer` attribute causes the script to execute after the full HTML
+      document has been parsed. For non-blocking uses, avoiding race conditions,
+      and consistent behavior across browsers, consider loading using Promises. See
+      https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+      for more information.
+      -->
+  </body>
+</html>
