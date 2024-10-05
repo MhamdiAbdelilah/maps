@@ -77,7 +77,9 @@ async function setMarkers(map, markers, infoWindow) {
   });
   marker.addListener("click", ({ domEvent, latLng }) => {
     const { target } = domEvent;
-    alert(`Vous avez clicer sur le marker ${marker.title}`)
+    infoWindow.close();
+    infoWindow.setContent(beach.content);
+    infoWindow.open(marker.map, marker);
   });
 
 
