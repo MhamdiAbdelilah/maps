@@ -19,9 +19,9 @@ async function initMap() {
       center: cord,
       mapId: "37467c5a4504d37e",
     });
-    const infoWindow = new InfoWindow();
+    // const infoWindow = new InfoWindow();
 
-    setMarkers(map, markers, infoWindow);
+    setMarkers(map, markers);
   })
   .catch((error) => {
     console.error('Error fetching markers:', error);
@@ -53,15 +53,23 @@ async function initMap() {
 
 // Data for the markers consisting of a name, a LatLng and a zIndex for the
 // order in which these markers should display on top of each other.
-async function setMarkers(map, markers, infoWindow) {
+async function setMarkers(map, markers) {
   const  { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
     "marker",
   );
   
-      
+  
   for (let i = 0; i < markers.length; i++) {
     const beach = markers[i];
-
+    const contentString = `
+        <h1>${beach.title}</h1>
+        <img src="${beach.contant.img}" >
+        <p><strong>le bref</strong></br></br>${beach.contant.bref}</p>
+        `
+    const infowindow = new google.maps.InfoWindow({
+      content: contentString,
+    });
+    
     const pin = new PinElement({
       glyph: `${i + 1}`,
       scale: 1,
@@ -73,19 +81,15 @@ async function setMarkers(map, markers, infoWindow) {
       content: pin.element,
       gmpClickable: true,
       content:beach.contente,
-      
-
 
   });
   marker.addListener("click", ({ domEvent, latLng }) => {
     const { target } = domEvent;
-    infoWindow.close();
-    infoWindow.setContent(`
-      <h1>${beach.title}</h1>
-      <img src="${beach.contant.img}" >
-      <p><strong>le bref</strong></br></br>${beach.contant.bref}</p>
-      `);
-    infoWindow.open(marker.map, marker);
+    infowindow.close();
+    infowindow.open({
+      anchor: marker,
+      map,
+    });
   });
 
 
